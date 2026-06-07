@@ -1,4 +1,4 @@
-const CACHE_NAME = "l4l5-static-guide-v2";
+const CACHE_NAME = "l4l5-static-guide-v3";
 const APP_SHELL = [
   "./",
   "./index.html",

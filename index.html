@@ -210,6 +210,7 @@
 
     .section {
       padding: var(--space-9) var(--space-6);
+      scroll-margin-top: 96px;
     }
 
     .section.tight {
@@ -369,7 +370,7 @@
 
     .program-layout {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 360px;
+      grid-template-columns: minmax(0, 1fr) 340px;
       gap: var(--space-6);
       align-items: start;
     }
@@ -387,43 +388,119 @@
     }
 
     .program-card {
-      overflow: hidden;
+      padding: var(--space-4);
     }
 
-    .day-row {
+    .weekly-plan-grid {
       display: grid;
-      grid-template-columns: 110px minmax(0, 1fr) 180px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: var(--space-4);
-      align-items: center;
+    }
+
+    .plan-day-card {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: linear-gradient(180deg, #ffffff, #fbfdfc);
       padding: var(--space-5);
-      border-bottom: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
     }
 
-    .day-row:last-child {
-      border-bottom: 0;
+    .plan-day-card.primary {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 240px;
+      align-items: center;
     }
 
-    .day {
+    .plan-day-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-3);
+      align-items: start;
+    }
+
+    .day-badge {
       color: var(--brand);
+      font-size: 0.8rem;
       font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
     }
 
-    .day-main strong {
-      display: block;
-      margin-bottom: 4px;
-      font-size: 1rem;
+    .plan-day-card h3 {
+      margin: 4px 0 0;
+      font-size: 1.2rem;
+      line-height: 1.22;
+      letter-spacing: 0;
     }
 
-    .day-main span,
-    .day-dose {
+    .plan-duration {
+      border-radius: 999px;
+      background: var(--brand-3);
+      color: var(--brand);
+      padding: 7px 10px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .plan-focus {
+      margin: 0;
       color: var(--muted);
-      font-size: 0.92rem;
+      font-size: 0.94rem;
     }
 
-    .day-dose {
-      justify-self: end;
-      text-align: right;
+    .exercise-chip-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      align-items: flex-start;
+    }
+
+    .exercise-chip {
+      min-height: 34px;
+      border-radius: 999px;
+      background: var(--surface-2);
+      color: var(--ink);
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 10px;
+      font-size: 0.84rem;
       font-weight: 700;
+    }
+
+    .exercise-chip .material-symbols-rounded {
+      color: var(--brand);
+      font-size: 18px;
+    }
+
+    .plan-dose-grid {
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    .plan-dose {
+      border-radius: var(--radius-sm);
+      background: #f6faf9;
+      border: 1px solid var(--line);
+      padding: var(--space-3);
+      display: grid;
+      gap: 3px;
+    }
+
+    .plan-dose strong {
+      font-size: 0.84rem;
+      line-height: 1.2;
+    }
+
+    .plan-dose span {
+      color: var(--muted);
+      font-size: 0.8rem;
+      line-height: 1.35;
     }
 
     .side-note {
@@ -511,6 +588,8 @@
       overflow: hidden;
       display: grid;
       grid-template-rows: auto 1fr;
+      height: 100%;
+      min-width: 0;
     }
 
     .exercise-media {
@@ -543,8 +622,10 @@
 
     .exercise-body {
       padding: var(--space-5);
-      display: grid;
+      display: flex;
+      flex-direction: column;
       gap: var(--space-4);
+      min-height: 0;
     }
 
     .exercise-title {
@@ -596,6 +677,7 @@
       padding: var(--space-3);
       font-size: 0.9rem;
       font-weight: 700;
+      min-height: 74px;
     }
 
     .video-link {
@@ -612,6 +694,8 @@
       font-size: 0.9rem;
       font-weight: 800;
       text-decoration: none;
+      width: 100%;
+      margin-top: auto;
     }
 
     .video-link:hover,
@@ -760,14 +844,17 @@
         grid-template-columns: 1fr;
       }
 
-      .day-row {
+      .weekly-plan-grid,
+      .plan-day-card.primary {
         grid-template-columns: 1fr;
-        gap: 8px;
       }
 
-      .day-dose {
+      .plan-day-head {
+        grid-template-columns: 1fr;
+      }
+
+      .plan-duration {
         justify-self: start;
-        text-align: left;
       }
 
       .dose-row {
@@ -851,69 +938,143 @@
 
           <div class="program-layout">
             <div class="program-card" aria-label="Weekly L4-L5 rehab schedule">
-              <div class="day-row">
-                <div class="day">Every day</div>
-                <div class="day-main">
-                  <strong>Relief reset plus flat walking</strong>
-                  <span>90/90 or hook lying, then short flat walks without carrying heavy items.</span>
-                </div>
-                <div class="day-dose">5-15 min reset<br>5-30 min walk</div>
-              </div>
-              <div class="day-row">
-                <div class="day">Monday</div>
-                <div class="day-main">
-                  <strong>Core foundation A</strong>
-                  <span>Core brace, supine march, modified curl-up if symptoms are quiet.</span>
-                </div>
-                <div class="day-dose">20-30 min</div>
-              </div>
-              <div class="day-row">
-                <div class="day">Tuesday</div>
-                <div class="day-main">
-                  <strong>Mobility and nerve</strong>
-                  <span>Prone lying or sphinx only if tolerated, standing extension after sitting, gentle sciatic nerve glide.</span>
-                </div>
-                <div class="day-dose">15-25 min</div>
-              </div>
-              <div class="day-row">
-                <div class="day">Wednesday</div>
-                <div class="day-main">
-                  <strong>Core foundation B</strong>
-                  <span>Core brace, bird dog regression, side plank from knees, hip bridge.</span>
-                </div>
-                <div class="day-dose">20-30 min</div>
-              </div>
-              <div class="day-row">
-                <div class="day">Thursday</div>
-                <div class="day-main">
-                  <strong>Relief and walk day</strong>
-                  <span>Keep it lighter: 90/90 reset, easy walking, optional nerve glide if it stays gentle.</span>
-                </div>
-                <div class="day-dose">15-35 min</div>
-              </div>
-              <div class="day-row">
-                <div class="day">Friday</div>
-                <div class="day-main">
-                  <strong>Core strength</strong>
-                  <span>Modified curl-up, bird dog, side plank, hip bridge. Add dead bug later only if stable.</span>
-                </div>
-                <div class="day-dose">25-35 min</div>
-              </div>
-              <div class="day-row">
-                <div class="day">Saturday</div>
-                <div class="day-main">
-                  <strong>Conditioning</strong>
-                  <span>Longer flat walk or pool walking. Practice hip-hinge mechanics unloaded.</span>
-                </div>
-                <div class="day-dose">25-45 min</div>
-              </div>
-              <div class="day-row">
-                <div class="day">Sunday</div>
-                <div class="day-main">
-                  <strong>Recovery day</strong>
-                  <span>Gentle walk, relief position, and review which exercises felt neutral or helpful.</span>
-                </div>
-                <div class="day-dose">Easy only</div>
+              <div class="weekly-plan-grid">
+                <article class="plan-day-card primary">
+                  <div>
+                    <div class="plan-day-head">
+                      <div>
+                        <span class="day-badge">Every day</span>
+                        <h3>Reset, walk, then stop before symptoms build</h3>
+                      </div>
+                      <span class="plan-duration">10-45 min total</span>
+                    </div>
+                    <p class="plan-focus">This is the baseline that stays the same all week. Use it even on low-energy days.</p>
+                    <div class="exercise-chip-list" aria-label="Daily exercises">
+                      <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">air</span>90/90 or hook lying</span>
+                      <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">directions_walk</span>Flat walking</span>
+                      <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">keyboard_double_arrow_up</span>Standing extension if helpful</span>
+                    </div>
+                  </div>
+                  <div class="plan-dose-grid" aria-label="Daily doses">
+                    <div class="plan-dose"><strong>Relief reset</strong><span>5-15 minutes before exercise or after sitting.</span></div>
+                    <div class="plan-dose"><strong>Walking</strong><span>5-30 minutes on flat ground, split into short walks if needed.</span></div>
+                  </div>
+                </article>
+
+                <article class="plan-day-card">
+                  <div class="plan-day-head">
+                    <div>
+                      <span class="day-badge">Monday</span>
+                      <h3>Core foundation A</h3>
+                    </div>
+                    <span class="plan-duration">20-30 min</span>
+                  </div>
+                  <p class="plan-focus">Learn to brace without aggravating the leg.</p>
+                  <div class="exercise-chip-list">
+                    <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">radio_button_checked</span>Core brace breath</span>
+                    <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">swap_vert</span>Supine march</span>
+                    <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">fitness_center</span>Modified curl-up if quiet</span>
+                  </div>
+                </article>
+
+                <article class="plan-day-card">
+                  <div class="plan-day-head">
+                    <div>
+                      <span class="day-badge">Tuesday</span>
+                      <h3>Mobility and nerve</h3>
+                    </div>
+                    <span class="plan-duration">15-25 min</span>
+                  </div>
+                  <p class="plan-focus">Gentle movement without aggressive stretching.</p>
+                  <div class="exercise-chip-list">
+                    <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">self_improvement</span>Prone lying or sphinx</span>
+                    <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">keyboard_double_arrow_up</span>Standing extension</span>
+                    <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">timeline</span>Sciatic nerve glide</span>
+                  </div>
+                </article>
+
+                <article class="plan-day-card">
+                  <div class="plan-day-head">
+                    <div>
+                      <span class="day-badge">Wednesday</span>
+                      <h3>Core foundation B</h3>
+                    </div>
+                    <span class="plan-duration">20-30 min</span>
+                  </div>
+                  <p class="plan-focus">Add anti-rotation and glute support.</p>
+                  <div class="exercise-chip-list">
+                    <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">radio_button_checked</span>Core brace breath</span>
+                    <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">accessibility_new</span>Bird dog</span>
+                    <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">splitscreen_left</span>Side plank from knees</span>
+                    <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">expand_less</span>Hip bridge</span>
+                  </div>
+                </article>
+
+                <article class="plan-day-card">
+                  <div class="plan-day-head">
+                    <div>
+                      <span class="day-badge">Thursday</span>
+                      <h3>Relief day</h3>
+                    </div>
+                    <span class="plan-duration">15-35 min</span>
+                  </div>
+                  <p class="plan-focus">Reduce load so symptoms can settle.</p>
+                  <div class="exercise-chip-list">
+                    <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">air</span>90/90 reset</span>
+                    <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">directions_walk</span>Easy walk</span>
+                    <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">timeline</span>Optional nerve glide</span>
+                  </div>
+                </article>
+
+                <article class="plan-day-card">
+                  <div class="plan-day-head">
+                    <div>
+                      <span class="day-badge">Friday</span>
+                      <h3>Core strength</h3>
+                    </div>
+                    <span class="plan-duration">25-35 min</span>
+                  </div>
+                  <p class="plan-focus">Build endurance with the spine quiet.</p>
+                  <div class="exercise-chip-list">
+                    <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">fitness_center</span>Modified curl-up</span>
+                    <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">accessibility_new</span>Bird dog</span>
+                    <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">splitscreen_left</span>Side plank</span>
+                    <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">expand_less</span>Hip bridge</span>
+                    <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">add_circle</span>Dead bug later</span>
+                  </div>
+                </article>
+
+                <article class="plan-day-card">
+                  <div class="plan-day-head">
+                    <div>
+                      <span class="day-badge">Saturday</span>
+                      <h3>Conditioning</h3>
+                    </div>
+                    <span class="plan-duration">25-45 min</span>
+                  </div>
+                  <p class="plan-focus">Build capacity without carrying heavy gear.</p>
+                  <div class="exercise-chip-list">
+                    <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">directions_walk</span>Longer flat walk</span>
+                    <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">pool</span>Pool walking</span>
+                    <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">deployed_code</span>Hip-hinge practice</span>
+                  </div>
+                </article>
+
+                <article class="plan-day-card">
+                  <div class="plan-day-head">
+                    <div>
+                      <span class="day-badge">Sunday</span>
+                      <h3>Recovery</h3>
+                    </div>
+                    <span class="plan-duration">Easy only</span>
+                  </div>
+                  <p class="plan-focus">Keep movement gentle and prepare for the next week.</p>
+                  <div class="exercise-chip-list">
+                    <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">directions_walk</span>Gentle walk</span>
+                    <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">air</span>Relief position</span>
+                    <span class="exercise-chip"><span class="material-symbols-rounded" aria-hidden="true">checklist</span>Notice triggers</span>
+                  </div>
+                </article>
               </div>
             </div>
 
